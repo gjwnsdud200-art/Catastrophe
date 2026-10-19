@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class CatPawController : MonoBehaviour
 {
-    public float moveSpeed = 1f;
+    public float moveForce = 10f;
     public float pawHeight = 0.5f;
     public LayerMask pawSurfaceLayer;
 
@@ -51,8 +51,9 @@ pawSurfaceLayer
 
     void FixedUpdate() //물리 시간에 맞춰 Rigidbody를 움직이는 로직
     {
-        Vector3 newPosition = Vector3.MoveTowards(rb.position, targetPosition, moveSpeed * Time.fixedDeltaTime);
+        Vector3 direction = targetPosition - rb.position; //목표를 향하는 벡터
+        // 마우스가 손에 가까우면 약한힘 멀리가면 강한힘이 작용하게
 
-        rb.MovePosition(newPosition);
+        rb.AddForce(direction * moveForce);
     }
 }
