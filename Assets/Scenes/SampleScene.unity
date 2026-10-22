@@ -492,7 +492,7 @@ Transform:
   m_GameObject: {fileID: 473125832}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.84029, y: -0, z: 1.52664}
+  m_LocalPosition: {x: 0.84029, y: -1.66, z: 1.52664}
   m_LocalScale: {x: 8, y: 0.5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -584,7 +584,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.085, y: 1.046, z: 3.047}
-  m_LocalScale: {x: 1, y: 0.5, z: 2}
+  m_LocalScale: {x: 0.5, y: 0.3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -627,8 +627,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 699208562}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.674, y: 1.619, z: 4.947}
+  m_LocalRotation: {x: -0.0020634397, y: 0.9708688, z: -0.23945376, w: -0.008448969}
+  m_LocalPosition: {x: -0.515, y: 0.601, z: 5.451}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -714,6 +714,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1957562448}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1641205250
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1641205251}
+  m_Layer: 0
+  m_Name: PawRestPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1641205251
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641205250}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.81, y: -1.66, z: 1.52664}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1851570623
 GameObject:
   m_ObjectHideFlags: 0
@@ -726,6 +757,7 @@ GameObject:
   - component: {fileID: 1851570626}
   - component: {fileID: 1851570625}
   - component: {fileID: 1851570624}
+  - component: {fileID: 1851570628}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -844,13 +876,27 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1851570623}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.016534831, y: 0.92504084, z: -0.37733564, w: 0.040545266}
-  m_LocalPosition: {x: -0.31844673, y: 3.4719636, z: 3.14074}
+  m_LocalRotation: {x: -0.0020634125, y: 0.9708693, z: -0.23945199, w: -0.008448882}
+  m_LocalPosition: {x: -0.51168644, y: 1.5261406, z: 5.6670113}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1851570628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851570623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad8ac1a49511c5749b633012ca99217b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraController
+  mouseSensitivityX: 0.1
+  mouseSensitivityY: 0.05
 --- !u!1 &1957562442
 GameObject:
   m_ObjectHideFlags: 0
@@ -889,6 +935,7 @@ MonoBehaviour:
   pawSurfaceLayer:
     serializedVersion: 2
     m_Bits: 64
+  pawRestPoint: {fileID: 1641205251}
 --- !u!54 &1957562444
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1022,3 +1069,4 @@ SceneRoots:
   - {fileID: 499354672}
   - {fileID: 1957562448}
   - {fileID: 699208563}
+  - {fileID: 1641205251}

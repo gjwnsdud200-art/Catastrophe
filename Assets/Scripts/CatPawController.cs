@@ -8,8 +8,12 @@ public class CatPawController : MonoBehaviour
     public float pawHeight = 0.5f;
     public LayerMask pawSurfaceLayer;
 
+    public Transform pawRestPoint;
+
     private Rigidbody rb;
     private Vector3 targetPosition;
+
+    private bool isControllingPaw; // 마우스를 누르고 움직이게
 
     void Start()
     {
@@ -18,6 +22,13 @@ public class CatPawController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        isControllingPaw = Mouse.current.leftButton.isPressed;
+
+        if (!isControllingPaw)
+        {
+            return;
+        }
+
         Vector2 mousePosition = Mouse.current.position.ReadValue();//현재 마우스의 화면상 위치가져오기
 
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
@@ -51,6 +62,11 @@ pawSurfaceLayer
 
     void FixedUpdate() //물리 시간에 맞춰 Rigidbody를 움직이는 로직
     {
+        if (!isControllingPaw)
+        {
+            targetPosition = pawRestPoint.position;
+        }
+
         Vector3 direction = targetPosition - rb.position; //목표를 향하는 벡터
         // 마우스가 손에 가까우면 약한힘 멀리가면 강한힘이 작용하게
 
