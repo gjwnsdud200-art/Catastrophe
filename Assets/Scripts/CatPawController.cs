@@ -6,9 +6,13 @@ public class CatPawController : MonoBehaviour
 {
     public float moveForce = 10f;
     public float pawHeight = 0.5f;
+    public float pawSensitivity = 0.01f;
+
     public LayerMask pawSurfaceLayer;
 
     public Transform pawRestPoint;
+
+    private Vector2 virtualMousePosition;
 
     private Rigidbody rb;
     private Vector3 targetPosition;
@@ -18,6 +22,9 @@ public class CatPawController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        targetPosition = rb.position;
+
+        virtualMousePosition = new Vector2(Screen.width / 2f, Screen.height / 2f);
     }
     // Update is called once per frame
     void Update()
@@ -28,10 +35,21 @@ public class CatPawController : MonoBehaviour
         {
             return;
         }
+        Vector2 mouseDelta = Mouse.current.delta.ReadValue(); // 방향 정보도 들어 있고 이동량 정보도 들어 있다
+        virtualMousePosition += mouseDelta;
+        virtualMousePosition.x = Mathf.Clamp(virtualMousePosition.x, 0f, Screen.width);
+        virtualMousePosition.y = Mathf.Clamp(virtualMousePosition.y, 0f, Screen.height);
+        // 가상 마우스가 화면을 벗어나지 않도록
 
-        Vector2 mousePosition = Mouse.current.position.ReadValue();//현재 마우스의 화면상 위치가져오기
 
-        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+        /*
+        Vector3 pawMoveX = Camera.main.transform.right * mouseDelta.x * pawSensitivity;
+        Vector3 pawMoveY = Camera.main.transform.up * mouseDelta.y * pawSensitivity;
+
+        targetPosition += pawMoveX + pawMoveY;
+        */
+
+        Ray ray = Camera.main.ScreenPointToRay(virtualMousePosition);
 
         RaycastHit hit; // Ray가 부딪힌 결과 정보가들어간다.
 
@@ -39,8 +57,6 @@ public class CatPawController : MonoBehaviour
         {
             targetPosition = hit.point;
             targetPosition.y += pawHeight;
-
-            Debug.Log("Ray 충돌 : " + hit.collider.gameObject.name);
 
         }
         /*
