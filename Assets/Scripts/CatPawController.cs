@@ -8,6 +8,13 @@ public class CatPawController : MonoBehaviour
     public float pawHeight = 0.5f;
     public float pawSensitivity = 0.01f;
 
+    public float pawHeightSpeed = 0.01f;
+    public float minPawHeight = 0.5f;
+    public float maxPawHeight = 3f;
+
+    private float currentPawHeight;
+
+
     public LayerMask pawSurfaceLayer;
 
     public Transform pawRestPoint;
@@ -19,10 +26,14 @@ public class CatPawController : MonoBehaviour
 
     private bool isControllingPaw; // 마우스를 누르고 움직이게
 
+    public Transform armAnchor;
+    public float maxArmLenghth = 3f;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         targetPosition = rb.position;
+        currentPawHeight = rb.position.y;
 
         virtualMousePosition = new Vector2(Screen.width / 2f, Screen.height / 2f);
     }
@@ -40,6 +51,22 @@ public class CatPawController : MonoBehaviour
         virtualMousePosition.x = Mathf.Clamp(virtualMousePosition.x, 0f, Screen.width);
         virtualMousePosition.y = Mathf.Clamp(virtualMousePosition.y, 0f, Screen.height);
         // 가상 마우스가 화면을 벗어나지 않도록
+        Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
+
+        Vector2 mouseOffset = virtualMousePosition - screenCenter;
+        Vector3 armDirection = Camera.main.transform.forward;
+        armDirection += Camera.main.transform.right * mouseOffset.x * 0.001f;
+        armDirection += Camera.main.transform.up * mouseOffset.y * 0.001f;
+
+        armDirection = armDirection.normalized;
+
+        targetPosition = armAnchor.position + armDirection * maxArmLenghth;
+
+
+        currentPawHeight += mouseDelta.y * pawHeightSpeed;
+
+        currentPawHeight = Mathf.Clamp(currentPawHeight, minPawHeight, maxPawHeight);
+
 
 
         /*
@@ -49,16 +76,20 @@ public class CatPawController : MonoBehaviour
         targetPosition += pawMoveX + pawMoveY;
         */
 
+        /*
         Ray ray = Camera.main.ScreenPointToRay(virtualMousePosition);
 
         RaycastHit hit; // Ray가 부딪힌 결과 정보가들어간다.
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, pawSurfaceLayer))  // 이 Ray를 3D 공간으로 쏴보고, 무언가에 맞았다면 그 정보를 hit에 넣어줘
         {
-            targetPosition = hit.point;
-            targetPosition.y += pawHeight;
+            targetPosition.x = hit.point.x;
+            targetPosition.z = hit.point.z;
 
         }
+
+        targetPosition.y = currentPawHeight;
+        */
         /*
          * ray
 → 어떤 광선을 쏠 것인가

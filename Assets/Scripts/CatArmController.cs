@@ -17,15 +17,15 @@ public class CatArmController : MonoBehaviour
     {
         Vector3 direction = pawJoint.position - armAnchor.position;
 
-        float distance = direction.magnitude;
+        //float distance = direction.magnitude;
 
         transform.position = armAnchor.position + direction / 2f;
 
         transform.rotation = Quaternion.LookRotation(direction);
 
-        Vector3 scale = transform.localScale;
-        scale.z = distance;
-        transform.localScale = scale;
+        //Vector3 scale = transform.localScale;
+        //scale.z = distance;
+        //transform.localScale = scale;
       
     }
 }
